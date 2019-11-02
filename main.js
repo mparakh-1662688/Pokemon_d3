@@ -210,8 +210,9 @@
                     div.transition()
                         .duration(200)
                         .style("opacity", .9);
-                    div.html("Name: " + d["Name"] + "<br/>" + 
-                            "Type: " + d["Type 1"] + "<br/>" )
+                    div.html(d["Name"] + "<br/>" + 
+                             d["Type 1"] + "<br/>" +
+                             d["Type 2"] + "<br/>")
                         .style("left", (d3.event.pageX) + "px")
                         .style("top", (d3.event.pageY) + "px");
                     })

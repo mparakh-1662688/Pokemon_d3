@@ -51,14 +51,9 @@
     }
 
     window.onload = function() {
-        // options = d3.selectAll("body").append("select")
-        //     .attr('id', "main"
         svgContainer = d3.select('body').append("svg")
             .attr('width', measurements.width)
             .attr('height', measurements.height);
-        // getSelectedText();
-        // d3.append("title")
-        //     .text()
         d3.csv("pokemon.csv")
             .then((csvData) => data = csvData)
             .then(() => makeScatterPlot());
@@ -75,7 +70,6 @@
         Legendary = temp.concat(Legendary.filter( onlyUnique )); 
         const gen = function(d) {return d};
 
-        // console.log(Legendary)
         div = d3.select("body").append("div")
                     .attr("class", "tooltip")
                     .style("opacity", 0);
@@ -105,11 +99,9 @@
         d3.select("#selectButton2").on("change", function(d) {
             let selectedOption2 = d3.select(this).property("value")
             let selectedOption = d3.select("#selectButton").property("value")
-            console.log(selectedOption2)
             update(selectedOption, selectedOption2 , data)
         })
 
-        // console.log(data);
         let Sp_def = data.map((row) => parseInt(row["Sp. Def"]))
         let Total = data.map((row) =>  parseFloat(row["Total"]))
         function onlyUnique(value, index, self) { 
@@ -130,13 +122,11 @@
         update("(all)", "(all)", data);
         function update(selectedGroup, selectedGroup2, data) {
             let dataFilter;
-            // console.log(selectedGroup)
             if (selectedGroup === "(all)") {
                 dataFilter = data;
             } else {
                 dataFilter = data.filter(function(d){return d.Generation==selectedGroup});
             }
-            console.log(dataFilter)
             if (selectedGroup2 === "(all)") {
                 dataFilter = dataFilter;
             } else {
@@ -161,7 +151,6 @@
     }
 
     function drawAxes(scaleX, scaleY) {
-        // these are not HTML elements. They're functions!
         let xAxis = d3.axisBottom()
             .scale(scaleX)
             .tickValues(d3.range(10, 250, 10))
@@ -173,14 +162,6 @@
         svgContainer.append('g')
             .attr('transform', 'translate(0,450)')
             .call(xAxis)
-        // svgContainer.append("text")
-        //     .attr("class", "y label")
-        //     .attr("text-anchor", "end")
-        //     .attr("y", -5)
-        //     .attr("x", 0)
-        //     .attr("dy", ".75em")
-        //     .attr("transform", "rotate(-90)")
-        //     .text("Life Expectency");
 
         svgContainer.append('g')
             .attr('transform', 'translate(50, 0)')
@@ -193,8 +174,6 @@
         const currColor = function(d) { let a = d["Type 1"];
                                 let res = colors[a];
                                 return res; }
-        console.log(currColor)
-
 
         d3.selectAll("svg").selectAll("circle").remove()
         const circles = svgContainer.selectAll(".dot")
@@ -204,7 +183,6 @@
                 .attr('cx', xMap)
                 .attr('cy', yMap)
                 .attr('r', 5)
-                // .attr('r', (d) => pop_map_func(d["pop_mlns"]))
                 .attr('fill', currColor)
                 .on("mouseover", (d) => {
                     div.transition()
